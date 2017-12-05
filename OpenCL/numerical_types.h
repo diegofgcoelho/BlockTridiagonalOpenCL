@@ -11,8 +11,8 @@
 #ifndef NUMERICAL_TYPES_H_
 #define NUMERICAL_TYPES_H_
 
-const unsigned int bsize = 3;
-const unsigned int nblockrow = 1000;
+#define bsize 4
+#define nblockrow 1000
 
 /*
  * This represents a small bsize by bsize dense matrix,
@@ -65,65 +65,48 @@ typedef struct{
 } sblockpent;
 
 //Functions for the block type
-void multiplydd(block& A, block& B, block& C){
-	/*
-	 * This function perform the multiplication of two blocks,
-	 * A and B and returns it in the block C, i.e., C = A*B.
-	 */
 
-	for(unsigned int i = 0; i < bsize; i++){
-		for(unsigned int j = 0; j < bsize; j++){
-			C.data[j+bsize*i] = 0.0;
-			for(unsigned int k = 0; k < bsize; k++){
-				C.data[j+bsize*i] += A.data[bsize*i+k]*B.data[j+bsize*k];
-			}
-		}
-	}
-}
+/*
+ * This function perform the multiplication of two blocks,
+ * A and B and returns it in the block C, i.e., C = A*B.
+ */
+
+void multiplydd(block *A, block *B, block *C);
 
 //Functions for the sblock type
-void multiplyds(block& A, sblock& B, block& C){
-	/*
-	 * This function perform the multiplication of two blocks,
-	 * a dense nosymmetric A and dense symmetric B and returns it in the block C, i.e., C = A*B.
-	 */
 
-	for(unsigned int i = 0; i < bsize; i++){
-		for(unsigned int j = 0; j < bsize; j++){
-			C.data[j+bsize*i] = 0.0;
-			unsigned int BColpos = j;
-			for(unsigned int k = 0; k < j+1; k++){
-				BColpos =+ bsize-k;
-				C.data[j+bsize*i] += A.data[bsize*i+k]*B.data[BColpos];
-			}
-			for(unsigned int k = j+1; k < bsize; k++){
-				C.data[j+bsize*i] += A.data[bsize*i+k]*B.data[BColpos+k];
-			}
-		}
-	}
-}
+/*
+ * This function perform the multiplication of two blocks,
+ * a dense nonsymmetric A and dense symmetric B and returns it in the block C, i.e., C = A*B.
+ */
 
-void multiplysd(sblock& A, block& B, block& C){
-	/*
-	 * This function perform the multiplication of two blocks,
-	 * a dense nosymmetric A and dense symmetric B and returns it in the block C, i.e., C = A*B.
-	 */
+void multiplyds(block *A, sblock *B, block *C);
 
-	for(unsigned int i = 0; i < bsize; i++){
-		for(unsigned int j = 0; j < bsize; j++){
-			C.data[j+bsize*i] = 0.0;
-			unsigned int AColpos = j;
-			for(unsigned int k = 0; j <= k; k++){
-				AColpos =+ bsize-k;
-				C.data[j+bsize*i] += A.data[AColpos]*B.data[bsize*k+j];
-			}
-			for(unsigned int k = j+1; k < bsize; k++){
-				C.data[j+bsize*i] += A.data[AColpos+k]*B.data[bsize*k+j];
-			}
-		}
-	}
+/*
+ * This function perform the multiplication of two blocks,
+ * a dense nonsymmetric A and dense symmetric B and returns it in the block C, i.e., C = A*B.
+ */
 
-}
+void multiplysd(sblock *A, block *B, block *C);
 
+/*
+ * This function perform the multiplication of two blocks,
+ * both dense symmetric A and B and returns it in the block C, i.e., C = A*B.
+ */
+
+void multiplyss(sblock *A, sblock *B, sblock *C);
+
+
+/*
+ * This function simply prints the block A in the screen in a organized manner.
+ */
+
+void printblock(block A);
+
+/*
+ * This function simply prints the sblock A in the screen in a organized manner.
+ */
+
+void printsblock(sblock A);
 
 #endif /* NUMERICAL_TYPES_H_ */

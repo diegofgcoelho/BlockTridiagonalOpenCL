@@ -32,6 +32,9 @@
 								<inputType id="nvcc.compiler.input.c.1680977332" superClass="nvcc.compiler.input.c"/>
 							</tool>
 							<tool id="nvcc.linker.base.1082134251" name="NVCC Linker" superClass="nvcc.linker.base">
+								<option id="nvcc.linker.option.libs.1970733435" superClass="nvcc.linker.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="OpenCL"/>
+								</option>
 								<inputType id="nvcc.linker.input.238120058" superClass="nvcc.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -123,4 +126,5 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
 </cproject>
